@@ -125,9 +125,9 @@ def train(batch_size=16,epochs=5,transform=None):
             epoch_accuracy += accuracy(outputs,labels)
             running_epoch_acc = epoch_accuracy/(labels.size()[0] * (i+1))
             running_loss += loss.item()
-            running_loss_total += loss.item()
+            running_loss_total += loss.item()/(labels.size()[0] * (i+1))
             if i%30 == 29:
-                print('[%d, %5d] loss: %.3f, epoch_accuracy: %f' % (epoch, i + 1,running_loss,running_epoch_acc))
+                print('[%d, %5d] running loss: %.3f, epoch_accuracy: %f' % (epoch, i + 1,running_loss_total,running_epoch_acc))
                 running_loss = 0.0
             if i%100 == 99:
                 torch.save(net.state_dict(), 'checkpoint')
